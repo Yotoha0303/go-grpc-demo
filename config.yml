@@ -1,0 +1,7 @@
+mysql:
+  host: "127.0.0.1"
+  user: "root"
+  # password 优先读本字段；为空时回退环境变量 MYSQL_PASSWORD（可放在 .env）
+  password: ""
+  database: go_order_management_system
+  port: 3306
