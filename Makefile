@@ -9,7 +9,7 @@ help:
 	@echo tidy 		go auto check and install mod
 
 run:
-	go run cmd/
+	go run ./cmd
 
 tidy:
 	go mod tidy

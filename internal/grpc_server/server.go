@@ -26,3 +26,15 @@ func (s *OrderGRPCServer) CreateOrder(ctx context.Context, req *pb.CreateOrderRe
 		Message: "Order created successfully",
 	}, nil
 }
+
+func (s *OrderGRPCServer) GetOrder(ctx context.Context, req *pb.GetOrderRequest) (*pb.GetOrderResponse, error) {
+	order, err := s.orderService.GetOrderByID(req.OrderId)
+	if err != nil {
+		return &pb.GetOrderResponse{Status: "FAIL"}, nil
+	}
+	return &pb.GetOrderResponse{
+		OrderId:        order.ID,
+		TotalAmountFen: order.TotalAmountFen,
+		Status:         "SUCCESS",
+	}, nil
+}

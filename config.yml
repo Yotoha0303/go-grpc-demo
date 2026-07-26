@@ -5,3 +5,5 @@ mysql:
   password: ""
   database: go_order_management_system
   port: 3306
+server:
+  port: 8083

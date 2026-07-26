@@ -8,6 +8,7 @@ import (
 	pb "go-grpc-demo/api/proto/order"
 	"go-grpc-demo/config"
 	"go-grpc-demo/internal/grpc_server"
+	"go-grpc-demo/internal/handler"
 	"go-grpc-demo/internal/service"
 	"go-grpc-demo/pkg/db"
 
@@ -32,10 +33,8 @@ func main() {
 	log.Printf("mysql connected: %s@%s:%d/%s",
 		cfg.MySQL.User, cfg.MySQL.Host, cfg.MySQL.Port, cfg.MySQL.Database)
 
-	// reserved for dao / service wiring
-	_ = gormDB
-
 	orderSvc := service.NewOrderService(gormDB)
+	orderHandler := handler.NewOrderHandler(orderSvc)
 
 	go func() {
 		lis, err := net.Listen("tcp", ":50051")
@@ -54,17 +53,20 @@ func main() {
 	}()
 
 	r := gin.Default()
+
 	r.GET("/ping", func(ctx *gin.Context) {
 		ctx.JSON(200, gin.H{
 			"message": "success",
 		})
 	})
 
-	r.POST("/api/v1/orders", func(ctx *gin.Context) {
-		ctx.JSON(200, gin.H{"message": "HTTP order API"})
-	})
+	orderRouter := r.Group("/api/v1")
+	orderRouter.POST("/orders", orderHandler.CreateOrderHandler)
+	orderRouter.GET("/orders/:id", orderHandler.GetOrderHandler)
 
-	if err := r.Run(":8083"); err != nil {
+	addr := fmt.Sprintf(":%d", cfg.Server.Port)
+
+	if err := r.Run(addr); err != nil {
 		log.Fatalf("http server: %v", err)
 	}
 }

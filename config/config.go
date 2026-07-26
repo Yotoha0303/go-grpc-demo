@@ -9,7 +9,12 @@ import (
 )
 
 type Config struct {
-	MySQL MySQLConfig `yaml:"mysql"`
+	MySQL  MySQLConfig  `yaml:"mysql"`
+	Server ServerConfig `yaml:"server"`
+}
+
+type ServerConfig struct {
+	Port int `yaml:"port"`
 }
 
 type MySQLConfig struct {
@@ -35,6 +40,11 @@ func LoadEnv() error {
 		}
 		return fmt.Errorf("load .env: %w", err)
 	}
+	return nil
+}
+
+func (Config) validate() error {
+
 	return nil
 }
 
