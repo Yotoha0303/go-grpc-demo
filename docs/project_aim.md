@@ -10,3 +10,9 @@
 
 - 不在本服务完整实现下单、扣库存、幂等与状态机
 - 不复制主系统鉴权与管理后台能力
+
+## 延伸阅读
+
+- [product_design.md](product_design.md) — 场景与成功标准
+- [architecture.md](architecture.md) — 架构与链路
+- [../README.md](../README.md) — 快速开始

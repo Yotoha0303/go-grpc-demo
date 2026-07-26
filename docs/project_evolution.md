@@ -35,6 +35,7 @@ Client
 - 不 import 主系统 `internal` 包
 - 查询共享库 `go_order_management_system`，业务表以只读为主
 - 不在本项目对主库执行破坏性 migration / AutoMigrate
+- 详见 [architecture.md](architecture.md)、[database_design.md](database_design.md)、[product_design.md](product_design.md)
 
 ## 3. 里程碑记录
 

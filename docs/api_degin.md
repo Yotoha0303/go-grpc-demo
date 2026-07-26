@@ -24,12 +24,12 @@
 | 路径参数 | `id`：订单主键，正整数 |
 | 鉴权 | 当前无（演示用） |
 
-**成功响应示例：**
+**成功响应示例**（与 `internal/response` 一致，`code` 为 HTTP 状态语义）：
 
 ```json
 {
-  "code": 0,
-  "message": "ok",
+  "code": 200,
+  "message": "success",
   "data": {
     "id": 1,
     "user_id": 1,
